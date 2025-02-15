@@ -56,14 +56,11 @@ pub fn get_menu_items() -> HashMap<String, CategoryInfo> {
             apps: Vec::new(),
         });
     }
-    
-    println!("Scanning directory: {:?}", apps_dir); // Log para debug
 
     if let Ok(entries) = fs::read_dir(apps_dir) {
         for entry in entries.flatten() {
             if let Ok(path) = entry.path().into_os_string().into_string() {
                 if path.ends_with(".desktop") {
-                    println!("Processing file: {}", path); // Log para debug
                     
                     if let Ok(entry_data) = parse_entry(&path) {
                         let desktop_entry = entry_data.section("Desktop Entry");
@@ -74,10 +71,8 @@ pub fn get_menu_items() -> HashMap<String, CategoryInfo> {
                         }
 
                         let categories = desktop_entry.attr("Categories").unwrap_or("");
-                        println!("Original categories: {}", categories); // Log para debug
                         
                         let normalized_category = normalize_category(categories);
-                        println!("Normalized category: {}", normalized_category); // Log para debug
                         
                         let name = desktop_entry.attr("Name").unwrap_or("").to_string();
                         
@@ -93,24 +88,17 @@ pub fn get_menu_items() -> HashMap<String, CategoryInfo> {
 
                         // Agregar a la categoría específica
                         if let Some(category_info) = menu_items.get_mut(&normalized_category) {
-                            println!("Adding {} to category {}", name, normalized_category); // Log para debug
                             category_info.apps.push(app_entry.clone());
                         }
 
                         // Agregar a "all"
                         if let Some(all_category) = menu_items.get_mut("all") {
-                            println!("Adding {} to all category", name); // Log para debug
                             all_category.apps.push(app_entry);
                         }
                     }
                 }
             }
         }
-    }
-
-    // Log final para ver cuántas apps hay en cada categoría
-    for (category, info) in &menu_items {
-        println!("Category {} has {} apps", category, info.apps.len());
     }
 
     menu_items
