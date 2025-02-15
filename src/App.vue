@@ -114,8 +114,9 @@ onMounted(() => {
       </div>
 
       <!-- Categories -->
-      <div class="flex flex-wrap flex-row">
-        <CategoryPill
+      <div>
+        <div class="flex flex-wrap flex-row justify-center">
+          <CategoryPill
           v-for="(value, key) in menuData"
           :key="key"
           :category="key"
@@ -124,6 +125,8 @@ onMounted(() => {
           v-model:categorySelected="categorySelected"
           :class="{'bg-white/50 dark:bg-black/50': categorySelected === key}"
         />
+        </div>
+        
       </div>
     </div>
 
@@ -143,7 +146,6 @@ onMounted(() => {
   transform: translateY(10px);
 }
 
-/* Asegúrate que las imágenes de los iconos sean blancas */
 .session-button img {
   @apply brightness-0 invert opacity-75 hover:opacity-100 transition-opacity;
 }

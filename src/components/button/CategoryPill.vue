@@ -47,7 +47,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <button :class="isActive" class="inline-block p-2 rounded-lg" @click="setCategory(category)">
+  <button :class="isActive" class="p-2 rounded-lg hover:scale-120 transition-all duration-300" @click="setCategory(category)">
     <img :src="iconBase64" :title="description" :alt="category" class="h-12" />
   </button>
 </template>
