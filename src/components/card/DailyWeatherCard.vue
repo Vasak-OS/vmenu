@@ -26,9 +26,9 @@ defineProps({
 });
 </script>
 <template>
-  <div class="col text-center">
-    <WeatherIcon :code="weatherCode" :dayOrNight="dayOrNight" />
-    <div>{{ max }}</div>
-    <div>{{ min }}</div>
+  <div class="flex flex-row items-center justify-between p-2">
+    <WeatherIcon :code="weatherCode" :dayOrNight="dayOrNight" class="h-6" />
+    <div class="text-sm">{{ max }}</div>
+    <div class="text-sm">{{ min }}</div>
   </div>
 </template>
