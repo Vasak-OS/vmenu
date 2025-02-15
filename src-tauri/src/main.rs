@@ -6,6 +6,7 @@ mod menu_manager;
 mod icons;
 
 use icons::*;
+use tauri::Manager;
 
 fn main() {
     tauri::Builder::default()
@@ -14,6 +15,26 @@ fn main() {
             get_icon_base64,
             get_symbol_base64
         ])
+        .setup(|app| {
+            let window = app.get_webview_window("main").unwrap();
+            
+            // Manejar la pérdida de foco y la tecla Escape
+            window.on_window_event(|event| {
+                match event {
+                    tauri::WindowEvent::Focused(is_focused) => {
+                        if !is_focused {
+                            std::process::exit(0);
+                        }
+                    },
+                    tauri::WindowEvent::CloseRequested { .. } => {
+                        std::process::exit(0);
+                    },
+                    _ => {}
+                }
+            });
+
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
