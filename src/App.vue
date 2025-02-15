@@ -100,9 +100,7 @@ onMounted(() => {
     <div class="grid grid-cols-3 gap-6 p-6">
 
       <!-- Apps -->
-      <div class="bg-white/50 dark:bg-black/50 rounded-xl p-4">
-        
-        
+      <div class="bg-white/50 dark:bg-black/50 rounded-xl p-4 h-[calc(100vh-7rem)] overflow-y-auto">
           <MenuSection 
             v-model:apps="appsOfCategory"
           />
