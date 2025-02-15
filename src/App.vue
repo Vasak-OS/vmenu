@@ -90,21 +90,22 @@ onMounted(() => {
     </div>
 
     <!-- Main Content -->
-    <div class="grid grid-cols-3 gap-6 p-6">
-
-      <!-- Apps -->
-      <div class="bg-white/50 dark:bg-black/50 rounded-xl p-4">
-        <template v-if="filter !== ''">
+    <template v-if="filter !== ''">
           <FilterSection 
             v-model:apps="apps" 
             v-model:filter="filter"
           />
         </template>
-        <template v-else>
+    <template v-else>
+    <div class="grid grid-cols-3 gap-6 p-6">
+
+      <!-- Apps -->
+      <div class="bg-white/50 dark:bg-black/50 rounded-xl p-4">
+        
+        
           <MenuSection 
             v-model:apps="appsOfCategory"
           />
-        </template>
       </div>
 
       <!-- Weather Widget -->
@@ -113,7 +114,7 @@ onMounted(() => {
       </div>
 
       <!-- Categories -->
-      <div class="space-y-0.5">
+      <div class="flex flex-wrap flex-row">
         <CategoryPill
           v-for="(value, key) in menuData"
           :key="key"
@@ -121,11 +122,12 @@ onMounted(() => {
           :image="value.icon"
           :description="value.description"
           v-model:categorySelected="categorySelected"
-          class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg hover:bg-white/5 cursor-pointer transition-colors duration-200"
           :class="{'bg-white/50 dark:bg-black/50': categorySelected === key}"
         />
       </div>
     </div>
+
+  </template>
   </div>
 </template>
 
