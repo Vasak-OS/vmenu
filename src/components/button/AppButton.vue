@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { defineProps, ref, onMounted, computed } from 'vue';
 import { getIcon, getImageType } from "@/common/icons";
-
+import { invoke } from '@tauri-apps/api/core';
 const props = defineProps({
   app: {
     type: Object,
@@ -12,8 +12,11 @@ const props = defineProps({
 const appIcon = ref(props.app.icon);
 
 const openApp = async () => {
-  await $vsk.openApp(props.app.path);
-  $vsk.exit();
+  try {
+    await invoke('open_app', { path: props.app.path });
+  } catch (error) {
+    console.error('Error al abrir la aplicación:', error);
+  }
 };
 
 const getAppIcon = async () => {

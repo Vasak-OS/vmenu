@@ -15,7 +15,6 @@ const appIcon = ref(props.app.icon);
 const openApp = async (path: string) => {
   try {
     await invoke('open_app', { path });
-    await $vsk.exit(); // Cierra el launcher después de abrir la app
   } catch (error) {
     console.error('Error al abrir la aplicación:', error);
   }
