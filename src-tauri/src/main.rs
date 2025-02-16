@@ -4,16 +4,21 @@
 mod menu_manager;
 #[path = "./commands/icons.rs"]
 mod icons;
+#[path = "./commands/runner.rs"]
+mod runner;
 
 use icons::*;
+use runner::*;
 use tauri::Manager;
+
 
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             menu_manager::get_menu_items,
             get_icon_base64,
-            get_symbol_base64
+            get_symbol_base64,
+            open_app
         ])
         .setup(|app| {
             let window = app.get_webview_window("main").unwrap();
