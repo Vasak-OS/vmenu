@@ -34,7 +34,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <button class="flex flex-row w-full p-2 items-center" @click="openApp(app.path)" :title="app.description">
+  <button class="flex flex-row w-full p-2 items-center transform hover:translate-x-1 hover:scale-110 hover:bg-white/50 dark:hover:bg-black/50 transition-transform duration-200" @click="openApp(app.path)" :title="app.description">
     <img :src="iconBase64" class="img-fluid h-10" />
     <div class="col-10 app-card-info ps-2">
       {{ app.name }}

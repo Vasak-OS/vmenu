@@ -61,12 +61,12 @@ onMounted(setMenu);
 <template>
   <div class="min-h-screen bg-white/50 dark:bg-black/50 backdrop-blur-md text-black dark:text-white rounded-xl">
     <!-- Header Section -->
-    <div class="flex items-center justify-between px-6 py-3">
+    <div class="flex items-center justify-between px-6 py-3 animate-fadeIn">
       <UserInfo class="w-10 h-10 rounded-full overflow-hidden" />
       
       <SearchComponent 
-        v-model:filter="filter"
-        class="w-1/3 mx-4" 
+        v-model:filter="filter" 
+        class="w-1/3 mx-4 transition-all duration-300 focus-within:w-2/5"
       />
       
       <div class="flex items-center space-x-2">
@@ -81,7 +81,7 @@ onMounted(setMenu);
           :title="action.title"
           :img="action.img"
           @click="action.handler"
-          class="w-8 h-8 hover:bg-white/5 rounded-full p-1.5 transition-colors"
+          class="w-8 h-8 hover:bg-white/5 rounded-full p-1.5 transition-colors transform hover:scale-110 hover:rotate-3 transition-all duration-200"
         />
       </div>
     </div>
@@ -94,7 +94,7 @@ onMounted(setMenu);
           />
         </template>
     <template v-else>
-    <div class="grid grid-cols-3 gap-6 p-6">
+    <div class="grid grid-cols-3 gap-6 p-6 animate-slideUp">
 
       <!-- Apps -->
       <div class="bg-white/50 dark:bg-black/50 rounded-xl p-4 h-[calc(100vh-7rem)] overflow-y-auto">
@@ -105,7 +105,7 @@ onMounted(setMenu);
 
       <!-- Weather Widget -->
       <div class="space-y-4">
-        <WeatherWidget class="bg rounded-xl p-4" />
+        <WeatherWidget class="bg rounded-xl p-4 transform hover:-translate-y-1 transition-transform duration-200" />
       </div>
 
       <!-- Categories -->
@@ -119,6 +119,7 @@ onMounted(setMenu);
           :description="value.description"
           v-model:categorySelected="categorySelected"
           :class="{'bg-white/50 dark:bg-black/50': categorySelected === key}"
+          class="transform hover:translate-y-1 transition-transform duration-200"
         />
         </div>
         
@@ -130,22 +131,35 @@ onMounted(setMenu);
 </template>
 
 <style>
-.app-enter-active,
-.app-leave-active {
-  transition: all 0.2s ease;
+/* Animaciones personalizadas */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.app-enter-from,
-.app-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out;
 }
 
 .session-button img {
   @apply brightness-0 invert opacity-75 hover:opacity-100 transition-opacity;
 }
 
-/* Estilos globales para mejorar la estética */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

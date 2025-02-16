@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <button :title="app.name" @click="openApp()">
+  <button :title="app.name" @click="openApp()" class="transform hover:translate-y-1 hover:scale-110 transition-transform duration-200">
     <img :src="iconBase64" class="h-10 m-2" />
     <span style="display: none">{{ app.name }}</span>
     <span style="display: none">{{ app.description }}</span>
