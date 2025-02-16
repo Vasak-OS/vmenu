@@ -14,6 +14,7 @@ defineProps({
 
 const emit = defineEmits(['update:filter']);
 </script>
+
 <template>
   <div>
     <input
