@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { invoke } from '@tauri-apps/api/core';
 import { ref, onMounted, computed } from 'vue';
+import { invoke } from '@tauri-apps/api/core';
 
 import SearchComponent from '@/components/SearchComponent.vue';
 import MenuSection from '@/components/section/MenuSection.vue';
@@ -10,22 +10,24 @@ import SessionButton from '@/components/button/SessionButton.vue';
 import CategoryPill from '@/components/button/CategoryPill.vue';
 import WeatherWidget from '@/components/widget/WeatherWidget.vue';
 
+// Importar iconos de sesión
 import shutdownImg from '@/assets/img/shutdown.svg';
 import rebootImg from '@/assets/img/reboot.svg';
 import logoutImg from '@/assets/img/logout.svg';
 import suspendImg from '@/assets/img/suspend.svg';
 
-const menuData = ref({});
+// Estado global
+const menuData = ref<Array<any>>([]);
 const categorySelected = ref('all');
 const filter = ref('');
 
+
+// Cargar menú
 const setMenu = async () => {
   try {
-    const items = await invoke('get_menu_items')
-    console.log('Menú items recibidos:', items)
-    menuData.value = items as any
+    menuData.value = await invoke('get_menu_items');
   } catch (error) {
-    console.error('Error al cargar el menú:', error)
+    console.error('Error al cargar el menú:', error);
   }
 };
 
@@ -50,11 +52,10 @@ const apps = computed(() => {
   console.log(allApps);
   return allApps;
 });
+
 const appsOfCategory = computed(() => (menuData.value as any)[categorySelected.value]?.apps);
 
-onMounted(() => {
-  setMenu();
-});
+onMounted(setMenu);
 </script>
 
 <template>
@@ -70,7 +71,7 @@ onMounted(() => {
       
       <div class="flex items-center space-x-2">
         <SessionButton 
-          v-for="(action, index) in [
+        v-for="(action, index) in [
             { title: 'Shutdown', img: shutdownImg, handler: shutdown },
             { title: 'Reboot', img: rebootImg, handler: reboot },
             { title: 'Logout', img: logoutImg, handler: logout },
