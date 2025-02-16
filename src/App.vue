@@ -10,10 +10,10 @@ import SessionButton from '@/components/button/SessionButton.vue';
 import CategoryPill from '@/components/button/CategoryPill.vue';
 import WeatherWidget from '@/components/widget/WeatherWidget.vue';
 
-import shutdown from '@/assets/img/shutdown.svg';
-import reboot from '@/assets/img/reboot.svg';
-import logout from '@/assets/img/logout.svg';
-import suspend from '@/assets/img/suspend.svg';
+import shutdownImg from '@/assets/img/shutdown.svg';
+import rebootImg from '@/assets/img/reboot.svg';
+import logoutImg from '@/assets/img/logout.svg';
+import suspendImg from '@/assets/img/suspend.svg';
 
 const menuData = ref({});
 const categorySelected = ref('all');
@@ -29,24 +29,20 @@ const setMenu = async () => {
   }
 };
 
-const logoutF = async () => {
-  await $vsk.logout();
-  $vsk.exit();
+const logout = async () => {
+  await invoke('logout');
 };
 
-const shutdownF = async () => {
-  await $vsk.shutdown();
-  $vsk.exit();
+const shutdown = async () => {
+  await invoke('shutdown');
 };
 
-const rebootF = async () => {
-  await $vsk.reboot();
-  $vsk.exit();
+const reboot = async () => {
+  await invoke('reboot');
 };
 
-const suspendF = async () => {
-  await $vsk.suspend();
-  $vsk.exit();
+const suspend = async () => {
+  await invoke('suspend');
 };
 
 const apps = computed(() => {
@@ -75,10 +71,10 @@ onMounted(() => {
       <div class="flex items-center space-x-2">
         <SessionButton 
           v-for="(action, index) in [
-            { title: 'Shutdown', img: shutdown, handler: shutdownF },
-            { title: 'Reboot', img: reboot, handler: rebootF },
-            { title: 'Logout', img: logout, handler: logoutF },
-            { title: 'Suspend', img: suspend, handler: suspendF }
+            { title: 'Shutdown', img: shutdownImg, handler: shutdown },
+            { title: 'Reboot', img: rebootImg, handler: reboot },
+            { title: 'Logout', img: logoutImg, handler: logout },
+            { title: 'Suspend', img: suspendImg, handler: suspend }
           ]"
           :key="index"
           :title="action.title"

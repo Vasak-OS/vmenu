@@ -6,11 +6,13 @@ mod menu_manager;
 mod icons;
 #[path = "./commands/runner.rs"]
 mod runner;
+#[path = "./commands/session.rs"]
+mod session;
 
 use icons::*;
 use runner::*;
+use session::*;
 use tauri::Manager;
-
 
 fn main() {
     tauri::Builder::default()
@@ -18,7 +20,11 @@ fn main() {
             menu_manager::get_menu_items,
             get_icon_base64,
             get_symbol_base64,
-            open_app
+            open_app,
+            logout,
+            reboot,
+            shutdown,
+            suspend
         ])
         .setup(|app| {
             let window = app.get_webview_window("main").unwrap();
