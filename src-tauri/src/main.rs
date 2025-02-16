@@ -8,11 +8,15 @@ mod icons;
 mod runner;
 #[path = "./commands/session.rs"]
 mod session;
+#[path = "./commands/user.rs"]
+mod user;
 
+
+use tauri::Manager;
 use icons::*;
 use runner::*;
 use session::*;
-use tauri::Manager;
+use user::*;
 
 fn main() {
     tauri::Builder::default()
@@ -44,7 +48,8 @@ fn main() {
             logout,
             reboot,
             shutdown,
-            suspend
+            suspend,
+            get_user_info
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

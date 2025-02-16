@@ -62,7 +62,7 @@ onMounted(setMenu);
   <div class="min-h-screen bg-white/50 dark:bg-black/50 backdrop-blur-md text-black dark:text-white rounded-xl">
     <!-- Header Section -->
     <div class="flex items-center justify-between px-6 py-3 animate-fadeIn">
-      <UserInfo class="w-10 h-10 rounded-full overflow-hidden" />
+      <UserInfo />
       
       <SearchComponent 
         v-model:filter="filter" 

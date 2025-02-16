@@ -1,12 +1,42 @@
-<script lang="ts" setup>
-import { inject, computed, ref, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
+import { invoke } from '@tauri-apps/api/core';
 
-const profilePicture = computed(() => `https://yt3.ggpht.com/ytc/AIdro_lLcLKB8s-7GHJBqNoj0vZNTD9AmGtFlH0pVkSTmt4uOS0=s48-c-k-c0x00ffffff-no-rj`);
+interface UserInfo {
+  username: string;
+  full_name: string;
+  avatar_base64: string;
+  home_dir: string;
+}
 
+const userInfo = ref<UserInfo | null>(null);
+
+const avatarSrc = computed(() => {
+  if (!userInfo.value?.avatar_base64) return '/default-avatar.png';
+  return `data:image/png;base64,${userInfo.value.avatar_base64}`;
+});
+
+const loadUserInfo = async () => {
+  try {
+    userInfo.value = await invoke('get_user_info');
+  } catch (error) {
+    console.error('Error al cargar información del usuario:', error);
+  }
+};
+
+onMounted(loadUserInfo);
 </script>
 
 <template>
-  <div id="user-info" class="hydriam-user">
-    <img :src="profilePicture" alt="user" />
+  <div v-if="userInfo" class="flex items-center space-x-3 backdrop-blur-sm">
+    <img 
+      :src="avatarSrc" 
+      :alt="userInfo.username"
+      class="w-10 h-10 rounded-full object-cover"
+    />
+    <div class="flex flex-col">
+      <span class="text-sm font-medium">{{ userInfo.full_name }}</span>
+      <span class="text-xs text-white/70">@{{ userInfo.username }}</span>
+    </div>
   </div>
 </template>
