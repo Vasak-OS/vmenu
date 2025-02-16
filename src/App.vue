@@ -23,7 +23,7 @@ const setMenu = async () => {
   try {
     const items = await invoke('get_menu_items')
     console.log('Menú items recibidos:', items)
-    menuData.value = items
+    menuData.value = items as any
   } catch (error) {
     console.error('Error al cargar el menú:', error)
   }
