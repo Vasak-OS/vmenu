@@ -12,7 +12,7 @@ pub async fn logout() -> Result<(), String> {
 #[tauri::command]
 pub async fn reboot() -> Result<(), String> {
     Command::new("systemctl")
-        .args(["reboot"])
+        .arg("reboot")
         .spawn()
         .map_err(|e| e.to_string())?;
     Ok(())
@@ -21,7 +21,7 @@ pub async fn reboot() -> Result<(), String> {
 #[tauri::command]
 pub async fn shutdown() -> Result<(), String> {
     Command::new("systemctl")
-        .args(["poweroff"])
+        .arg("poweroff")
         .spawn()
         .map_err(|e| e.to_string())?;
     Ok(())
@@ -30,7 +30,7 @@ pub async fn shutdown() -> Result<(), String> {
 #[tauri::command]
 pub async fn suspend() -> Result<(), String> {
     Command::new("systemctl")
-        .args(["suspend"])
+        .arg("suspend")
         .spawn()
         .map_err(|e| e.to_string())?;
     Ok(())

@@ -16,21 +16,11 @@ use tauri::Manager;
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![
-            menu_manager::get_menu_items,
-            get_icon_base64,
-            get_symbol_base64,
-            open_app,
-            logout,
-            reboot,
-            shutdown,
-            suspend
-        ])
         .setup(|app| {
-            let window = app.get_webview_window("main").unwrap();
+            let window = app.get_webview_window("main")
+                .expect("ventana principal no encontrada");
             
-            // Manejar la pérdida de foco y la tecla Escape
-            window.on_window_event(|event| {
+            window.on_window_event(move |event| {
                 match event {
                     tauri::WindowEvent::Focused(is_focused) => {
                         if !is_focused {
@@ -46,6 +36,16 @@ fn main() {
 
             Ok(())
         })
+        .invoke_handler(tauri::generate_handler![
+            menu_manager::get_menu_items,
+            get_icon_base64,
+            get_symbol_base64,
+            open_app,
+            logout,
+            reboot,
+            shutdown,
+            suspend
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

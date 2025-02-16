@@ -21,7 +21,6 @@ pub async fn open_app(path: &str) -> Result<(), String> {
                     .map_err(|e| e.to_string())?;
                 
                 std::process::exit(0);
-                return Ok(());
             }
         }
     }
