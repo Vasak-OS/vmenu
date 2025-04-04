@@ -18,9 +18,8 @@ import suspendImg from '@/assets/img/suspend.svg';
 
 // Estado global
 const menuData = ref<Array<any>>([]);
-const categorySelected = ref('all');
-const filter = ref('');
-
+const categorySelected = ref<any>('all');
+const filter = ref<string>('');
 
 // Cargar menú
 const setMenu = async () => {
@@ -49,7 +48,6 @@ const suspend = async () => {
 
 const apps = computed(() => {
   const allApps = (menuData.value as any)['all']?.apps;
-  console.log(allApps);
   return allApps;
 });
 

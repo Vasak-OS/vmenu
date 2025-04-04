@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { defineProps, computed, defineEmits, ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { getIcon, getImageType } from "@/common/icons";
 
 const emit = defineEmits(['update:categorySelected']);
 
 const props = defineProps<{
-  category: string;
+  category: any;
   image: string;
   description: string;
   categorySelected: string;
