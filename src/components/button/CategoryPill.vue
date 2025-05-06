@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, onMounted } from 'vue';
-import { getIcon, getImageType } from "@/common/icons";
+import { getIconSource } from '@vasakgroup/plugin-vicons';
 
 const emit = defineEmits(['update:categorySelected']);
 
@@ -22,12 +22,8 @@ const isActive = computed(() => {
 });
 
 const getAppIcon = async () => {
-  appIcon.value = await getIcon(props.image);
+  appIcon.value = await getIconSource(props.image);
 };
-
-const iconBase64 = computed(() => {
-  return `data:${getImageType(appIcon.value)};base64,${appIcon.value}`;
-});
 
 onMounted(() => {
   getAppIcon();
@@ -42,7 +38,7 @@ onMounted(() => {
       'bg-white/5 selected-category': category === categorySelected,
       'bg-transparent': category !== categorySelected
     }">
-    <img :src="iconBase64" :title="description" :alt="category" class="h-12" />
+    <img :src="appIcon" :title="description" :alt="category" class="h-12" />
   </button>
 </template>
 

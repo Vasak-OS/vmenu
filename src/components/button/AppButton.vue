@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue';
-import { getIcon, getImageType } from "@/common/icons";
+import { getIconSource } from '@vasakgroup/plugin-vicons';
 import { invoke } from '@tauri-apps/api/core';
 
 const props = defineProps({
@@ -21,12 +21,8 @@ const openApp = async () => {
 };
 
 const getAppIcon = async () => {
-  appIcon.value = await getIcon(props.app.icon);
+  appIcon.value = await getIconSource(props.app.icon);
 };
-
-const iconBase64 = computed(() => {
-  return `data:${getImageType(appIcon.value)};base64,${appIcon.value}`;
-});
 
 onMounted(() => {
   getAppIcon();
@@ -35,7 +31,7 @@ onMounted(() => {
 
 <template>
   <button :title="app.name" @click="openApp()" class="transform hover:translate-y-1 hover:scale-110 transition-transform duration-200">
-    <img :src="iconBase64" class="h-10 m-2" />
+    <img :src="appIcon" class="h-10 m-2" />
     <span style="display: none">{{ app.name }}</span>
     <span style="display: none">{{ app.description }}</span>
     <span style="display: none">{{ app.keywords }}</span>

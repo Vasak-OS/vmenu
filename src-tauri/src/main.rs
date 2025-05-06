@@ -2,8 +2,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod menu_manager;
-#[path = "./commands/icons.rs"]
-mod icons;
 #[path = "./commands/runner.rs"]
 mod runner;
 #[path = "./commands/session.rs"]
@@ -13,8 +11,8 @@ mod user;
 
 
 use tauri::Manager;
-use icons::*;
-use runner::*;
+use tauri_plugin_vicons;
+use runner::*;  
 use session::*;
 use user::*;
 
@@ -40,10 +38,9 @@ fn main() {
 
             Ok(())
         })
+        .plugin(tauri_plugin_vicons::init())
         .invoke_handler(tauri::generate_handler![
             menu_manager::get_menu_items,
-            get_icon_base64,
-            get_symbol_base64,
             open_app,
             logout,
             reboot,
