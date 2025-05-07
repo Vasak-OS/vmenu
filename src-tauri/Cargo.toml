@@ -28,4 +28,4 @@ gdk = "0.18"
 image = "0.25"
 base64 = "0.21"
 tauri-plugin-vicons = { git = "https://github.com/Vasak-OS/tauri-plugin-vicons", branch = "v2" }
-
+tauri-plugin-user-data = { git = "https://github.com/Vasak-OS/tauri-plugin-user-data", branch = "v2" }

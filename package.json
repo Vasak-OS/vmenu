@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.5",
     "@tauri-apps/api": "^2.5.0",
     "@tauri-apps/plugin-opener": "^2.2.6",
+    "@vasakgroup/plugin-user-data": "^2.0.0",
     "@vasakgroup/plugin-vicons": "^2.0.0",
     "patch": "^0.0.1",
     "tailwindcss": "^4.1.5",

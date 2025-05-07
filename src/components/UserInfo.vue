@@ -1,24 +1,18 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { invoke } from '@tauri-apps/api/core';
+import { getUserData, type UserInfo } from '@vasakgroup/plugin-user-data';
 
-interface UserInfo {
-  username: string;
-  full_name: string;
-  avatar_base64: string;
-  home_dir: string;
-}
 
 const userInfo = ref<UserInfo | null>(null);
 
 const avatarSrc = computed(() => {
-  if (!userInfo.value?.avatar_base64) return '/default-avatar.png';
-  return `data:image/png;base64,${userInfo.value.avatar_base64}`;
+  return userInfo.value?.avatar_data
 });
 
 const loadUserInfo = async () => {
   try {
-    userInfo.value = await invoke('get_user_info');
+    userInfo.value = await getUserData();
   } catch (error) {
     console.error('Error al cargar información del usuario:', error);
   }
