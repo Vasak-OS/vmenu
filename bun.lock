@@ -11,6 +11,7 @@
         "@vasakgroup/plugin-user-data": "^2.0.0",
         "@vasakgroup/plugin-vicons": "^2.0.0",
         "patch": "^0.0.1",
+        "pinia": "^3.0.3",
         "tailwindcss": "^4.1.9",
         "vue": "^3.5.16",
       },
