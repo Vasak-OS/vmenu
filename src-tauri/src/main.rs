@@ -11,6 +11,7 @@ mod session;
 use tauri::Manager;
 use tauri_plugin_vicons;
 use tauri_plugin_user_data;
+use tauri_plugin_config_manager;
 use runner::*;  
 use session::*;
 
@@ -38,6 +39,7 @@ fn main() {
         })
         .plugin(tauri_plugin_vicons::init())
         .plugin(tauri_plugin_user_data::init())
+        .plugin(tauri_plugin_config_manager::init())
         .invoke_handler(tauri::generate_handler![
             menu_manager::get_menu_items,
             open_app,
