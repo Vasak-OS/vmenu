@@ -25,3 +25,10 @@ const emit = defineEmits(["update:filter"]);
     @input="emit('update:filter', ($event.target as any).value)"
   />
 </template>
+
+<style scoped>
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+</style>
