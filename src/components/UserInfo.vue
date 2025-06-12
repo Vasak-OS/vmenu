@@ -29,7 +29,7 @@ onMounted(loadUserInfo);
       class="w-10 h-10 rounded-full object-cover"
     />
     <div class="flex flex-col">
-      <span class="text-sm font-medium">{{ userInfo.full_name }}</span>
+      <span class="text-sm font-bold">{{ userInfo.full_name }}</span>
       <span class="text-xs text-white/70">@{{ userInfo.username }}</span>
     </div>
   </div>

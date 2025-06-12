@@ -1,30 +1,27 @@
 <script lang="ts" setup>
-
 const vFocus = {
-  mounted: (el: HTMLElement) => el.focus()
+  mounted: (el: HTMLElement) => el.focus(),
 };
 
 defineProps({
   filter: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
-const emit = defineEmits(['update:filter']);
+const emit = defineEmits(["update:filter"]);
 </script>
 
 <template>
-  <div>
-    <input
-      type="text"
-      class="form-control rounded-xs"
-      placeholder="Search"
-      aria-label="Search"
-      id="search"
-      v-focus
-      :value="filter"
-      @input="emit('update:filter', ($event.target as any).value)"
-    />
-  </div>
+  <input
+    type="text"
+    class="form-control border-0 bg-transparent shadow-none"
+    placeholder="Search"
+    aria-label="Search"
+    id="search"
+    v-focus
+    :value="filter"
+    @input="emit('update:filter', ($event.target as any).value)"
+  />
 </template>
