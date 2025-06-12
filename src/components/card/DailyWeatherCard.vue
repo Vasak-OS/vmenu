@@ -25,8 +25,8 @@ defineProps({
 });
 </script>
 <template>
-  <div class="flex flex-row items-center justify-between p-2">
-    <WeatherIcon :code="weatherCode" :dayOrNight="dayOrNight" class="h-6" />
+  <div class="flex flex-row items-center justify-between p-1">
+    <WeatherIcon :code="weatherCode" :dayOrNight="dayOrNight" class="h-8" />
     <div class="text-sm">{{ max }}</div>
     <div class="text-sm">{{ min }}</div>
   </div>

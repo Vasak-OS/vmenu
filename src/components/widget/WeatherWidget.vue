@@ -74,7 +74,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-white/50 dark:bg-black/50 rounded-xl p-4">
+  <div class="background rounded-vsk p-4">
     <template v-if="weather">
       <CurrentWeatherCard
         :current="weather.current"
