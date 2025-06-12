@@ -79,12 +79,12 @@ onUnmounted(() => {
     class="vmenu background"
   >
     <!-- Header Section -->
-    <div class="flex items-center justify-between animate-fadeIn">
+    <div class="flex items-center justify-between animate-fadeIn mb-4">
       <UserInfo />
 
       <SearchComponent
         v-model:filter="filter"
-        class="w-1/3 mx-4 transition-all duration-300 focus-within:w-2/5"
+        class="search-component"
       />
 
       <div class="flex items-center space-x-2">
@@ -99,7 +99,7 @@ onUnmounted(() => {
           :title="action.title"
           :img="action.img"
           @click="action.handler"
-          class="w-8 h-8 hover:bg-white/5 rounded-full p-1.5 transition-colors transform hover:scale-110 hover:rotate-3 transition-all duration-200"
+          class="session-button"
         />
       </div>
     </div>
@@ -109,10 +109,10 @@ onUnmounted(() => {
       <FilterSection v-model:apps="apps" v-model:filter="filter" />
     </template>
     <template v-else>
-      <div class="grid grid-cols-3 gap-6 p-6 animate-slideUp">
+      <div class="grid grid-cols-3 gap-4 animate-slideUp h-[calc(100vh-88px)]">
         <!-- Apps -->
         <div
-          class="bg-white/50 dark:bg-black/50 rounded-xl p-4 h-[calc(100vh-7rem)] overflow-y-auto"
+          class="background rounded-vsk p-4 h-full overflow-y-auto"
         >
           <MenuSection v-model:apps="appsOfCategory" />
         </div>
@@ -120,7 +120,7 @@ onUnmounted(() => {
         <!-- Weather Widget -->
         <div class="space-y-4">
           <WeatherWidget
-            class="bg rounded-xl p-4 transform hover:-translate-y-1 transition-transform duration-200"
+            class="rounded-vsk p-4 transform hover:-translate-y-1"
           />
         </div>
 
@@ -135,9 +135,9 @@ onUnmounted(() => {
               :description="value.description"
               v-model:categorySelected="categorySelected"
               :class="{
-                'bg-white/50 dark:bg-black/50': categorySelected === key,
+                'background': categorySelected === key,
               }"
-              class="transform hover:translate-y-1 transition-transform duration-200"
+              class="transform hover:translate-y-1"
             />
           </div>
         </div>
@@ -152,6 +152,14 @@ onUnmounted(() => {
 .vmenu {
   @apply h-screen p-4;
   border-radius: calc(var(--border-radius) + 16px);
+}
+
+.search-component {
+  @apply w-2/5 border-b-2 border-vsk-primary;
+}
+
+.session-button {
+  @apply w-10 h-10 hover:bg-vsk-primary/30 rounded-vsk p-1 transform hover:scale-110 hover:rotate-3;
 }
 /* Animaciones personalizadas */
 @keyframes fadeIn {
