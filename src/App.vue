@@ -118,10 +118,8 @@ onUnmounted(() => {
         </div>
 
         <!-- Weather Widget -->
-        <div class="space-y-4">
-          <WeatherWidget
-            class="rounded-vsk p-4 transform hover:-translate-y-1"
-          />
+        <div class="rounded-vsk background p-4 space-y-4 h-full overflow-y-auto">
+          <WeatherWidget />
         </div>
 
         <!-- Categories -->

@@ -74,17 +74,18 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="background rounded-vsk p-4">
+  <div class="weather-widget-container">
     <template v-if="weather">
       <CurrentWeatherCard
         :current="weather.current"
         :units="weather.current_units"
         :dayOrNight="dayOrNight"
       />
-      <div class="hydriam-widget-weather-forecast">
+      <div class="vmenu-widget-weather-forecast">
         <DailyWeatherCard
           v-for="(value, key) in weather.daily.time"
           :key="key"
+          :date="weather.daily.time[key]"
           :min="weather.daily.temperature_2m_min[key]"
           :max="weather.daily.temperature_2m_max[key]"
           :units="weather.daily_units"
@@ -96,3 +97,36 @@ onMounted(async () => {
     <template v-else> NO se puede cargar el clima </template>
   </div>
 </template>
+
+<style scoped>
+.weather-widget-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vmenu-widget-weather-forecast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-around;
+}
+
+.vmenu-widget-weather-forecast :deep(.weather-icon) {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.4));
+}
+
+.vmenu-widget-weather-forecast :deep(.temp-max),
+.vmenu-widget-weather-forecast :deep(.temp-min) {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.vmenu-widget-weather-forecast :deep(> *) {
+  flex-basis: 100px;
+  flex-grow: 1;
+  text-align: center;
+}
+</style>
