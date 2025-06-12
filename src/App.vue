@@ -131,9 +131,8 @@ onUnmounted(() => {
             class="flex flex-wrap flex-row justify-center category-pills-wrapper"
           >
             <CategoryPill
-              v-for="(value, key, index) in menuData"
+              v-for="(value, key) in menuData"
               :key="key"
-              :data-index="index"
               :category="key"
               :image="value.icon"
               :description="value.description"

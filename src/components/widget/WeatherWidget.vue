@@ -88,9 +88,8 @@ onMounted(async () => {
         class="vmenu-widget-weather-forecast"
       >
         <DailyWeatherCard
-          v-for="(value, key, index) in weather.daily.time"
+          v-for="(value, key) in weather.daily.time"
           :key="key"
-          :data-index="index"
           :date="weather.daily.time[key]"
           :min="weather.daily.temperature_2m_min[key]"
           :max="weather.daily.temperature_2m_max[key]"
