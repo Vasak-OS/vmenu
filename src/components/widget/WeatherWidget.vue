@@ -81,10 +81,16 @@ onMounted(async () => {
         :units="weather.current_units"
         :dayOrNight="dayOrNight"
       />
-      <div class="vmenu-widget-weather-forecast">
+      <transition-group
+        tag="div"
+        name="list-stagger-weather"
+        appear
+        class="vmenu-widget-weather-forecast"
+      >
         <DailyWeatherCard
-          v-for="(value, key) in weather.daily.time"
+          v-for="(value, key, index) in weather.daily.time"
           :key="key"
+          :data-index="index"
           :date="weather.daily.time[key]"
           :min="weather.daily.temperature_2m_min[key]"
           :max="weather.daily.temperature_2m_max[key]"
@@ -92,7 +98,7 @@ onMounted(async () => {
           :dayOrNight="dayOrNight"
           :weatherCode="weather.daily.weather_code[key]"
         />
-      </div>
+      </transition-group>
     </template>
     <template v-else> NO se puede cargar el clima </template>
   </div>
@@ -108,25 +114,39 @@ onMounted(async () => {
 .vmenu-widget-weather-forecast {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem; /* Reducido para mejor ajuste con hover */
   justify-content: space-around;
 }
 
 .vmenu-widget-weather-forecast :deep(.weather-icon) {
-  width: 40px;
-  height: 40px;
-  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.4));
+  width: 38px; /* Ligeramente más pequeño para el efecto hover */
+  height: 38px;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 .vmenu-widget-weather-forecast :deep(.temp-max),
 .vmenu-widget-weather-forecast :deep(.temp-min) {
-  font-size: 1.1rem;
+  font-size: 1rem; /* Ligeramente más pequeño */
   font-weight: 600;
 }
 
 .vmenu-widget-weather-forecast :deep(> *) {
-  flex-basis: 100px;
+  flex-basis: 90px; /* Ajustado */
   flex-grow: 1;
   text-align: center;
+}
+
+/* Animación de lista escalonada para tarjetas de clima */
+.list-stagger-weather-enter-active,
+.list-stagger-weather-leave-active {
+  transition: all 0.3s ease-out;
+}
+.list-stagger-weather-enter-from,
+.list-stagger-weather-leave-to {
+  opacity: 0;
+  transform: scale(0.8) translateY(15px);
+}
+.list-stagger-weather-move {
+  transition: transform 0.3s ease-out;
 }
 </style>

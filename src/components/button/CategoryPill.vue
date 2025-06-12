@@ -32,10 +32,10 @@ onMounted(() => {
 
 <template>
   <button 
-    class="p-2 rounded-lg hover:scale-120 transition-all duration-300" 
+    class="p-2 rounded-vsk hover:scale-120" 
     @click="setCategory(category)"
     :class="{
-      'bg-white/5 selected-category': category === categorySelected,
+      'bg-vsk-primary/50 selected-category': category === categorySelected,
       'bg-transparent': category !== categorySelected
     }">
     <img :src="appIcon" :title="description" :alt="category" class="h-12" />
@@ -62,19 +62,19 @@ onMounted(() => {
 
 @keyframes glow {
   0% {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(127, 127, 127, 0.1);
   }
   50% {
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(127, 127, 127, 0.3);
   }
   100% {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(127, 127, 127, 0.1);
   }
 }
 
 .selected-category {
   animation: pulse 2s infinite ease-in-out;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(127, 127, 127, 0.1);
   animation: glow 2s infinite ease-in-out;
   position: relative;
 }
@@ -85,9 +85,9 @@ onMounted(() => {
   inset: -1px;
   border-radius: inherit;
   background: linear-gradient(45deg, 
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.1) 50%,
-    rgba(255,255,255,0) 100%
+    rgba(127,127,127,0) 0%,
+    rgba(127,127,127,0.1) 50%,
+    rgba(127,127,127,0) 100%
   );
   animation: shine 3s infinite linear;
 }

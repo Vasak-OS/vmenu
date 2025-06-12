@@ -50,7 +50,13 @@ const formattedDate = computed(() => {
 @reference "../../style.css";
 
 .daily-weather-card-layout {
-  @apply flex flex-col items-center gap-2 p-2 rounded-vsk bg-vsk-primary/10;
+  @apply flex flex-col items-center gap-1 p-2 rounded-vsk bg-vsk-primary/50; /* Reducido el gap y padding */
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.daily-weather-card-layout:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
 .date-display {
@@ -59,8 +65,13 @@ const formattedDate = computed(() => {
 }
 
 .weather-icon {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-top: 0.1rem; /* Ajustado */
+  margin-bottom: 0.1rem; /* Ajustado */
+  transition: transform 0.2s ease-in-out;
+}
+
+.daily-weather-card-layout:hover .weather-icon {
+  transform: scale(1.1);
 }
 
 .temperatures {

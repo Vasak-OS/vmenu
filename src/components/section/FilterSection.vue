@@ -22,7 +22,7 @@ const appsFiltred = computed((): Array<any> => {
 </script>
 
 <template>
-  <div class="hydriam-search-results">
+  <div class="">
     <AppButton v-for="app in appsFiltred" :key="app.name" :app="app" />
   </div>
 </template>

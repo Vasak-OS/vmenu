@@ -79,7 +79,7 @@ onUnmounted(() => {
     class="vmenu background"
   >
     <!-- Header Section -->
-    <div class="flex items-center justify-between animate-fadeIn mb-4">
+    <div class="flex items-center justify-between animate-fadeIn mb-4 header-section">
       <UserInfo />
 
       <SearchComponent
@@ -105,42 +105,45 @@ onUnmounted(() => {
     </div>
 
     <!-- Main Content -->
-    <template v-if="filter !== ''">
-      <FilterSection v-model:apps="apps" v-model:filter="filter" />
-    </template>
-    <template v-else>
-      <div class="grid grid-cols-3 gap-4 animate-slideUp h-[calc(100vh-88px)]">
+    <transition name="fade" mode="out-in">
+      <div v-if="filter !== ''" key="filter-view" class="animate-fadeIn">
+        <FilterSection v-model:apps="apps" v-model:filter="filter" />
+      </div>
+      <div v-else key="main-view" class="grid grid-cols-3 gap-4 animate-slideUpPlus h-[calc(100vh-88px)]">
         <!-- Apps -->
         <div
-          class="background rounded-vsk p-4 h-full overflow-y-auto"
+          class="background rounded-vsk p-4 h-full overflow-y-auto apps-container"
         >
           <MenuSection v-model:apps="appsOfCategory" />
         </div>
 
         <!-- Weather Widget -->
-        <div class="rounded-vsk background p-4 space-y-4 h-full overflow-y-auto">
+        <div class="rounded-vsk background p-4 space-y-4 h-full overflow-y-auto weather-container">
           <WeatherWidget />
         </div>
 
         <!-- Categories -->
-        <div>
-          <div class="flex flex-wrap flex-row justify-center">
+        <div class="categories-container">
+          <transition-group
+            tag="div"
+            name="list-stagger"
+            appear
+            class="flex flex-wrap flex-row justify-center category-pills-wrapper"
+          >
             <CategoryPill
-              v-for="(value, key) in menuData"
+              v-for="(value, key, index) in menuData"
               :key="key"
+              :data-index="index"
               :category="key"
               :image="value.icon"
               :description="value.description"
               v-model:categorySelected="categorySelected"
-              :class="{
-                'background': categorySelected === key,
-              }"
-              class="transform hover:translate-y-1"
+              class="category-pill"
             />
-          </div>
+          </transition-group>
         </div>
       </div>
-    </template>
+    </transition>
   </div>
 </template>
 
@@ -152,12 +155,17 @@ onUnmounted(() => {
   border-radius: calc(var(--border-radius) + 16px);
 }
 
+.header-section {
+  /* Puedes ajustar la duración si es necesario */
+  animation-duration: 0.5s;
+}
+
 .search-component {
   @apply w-2/5 border-b-2 border-vsk-primary;
 }
 
 .session-button {
-  @apply w-10 h-10 hover:bg-vsk-primary/30 rounded-vsk p-1 transform hover:scale-110 hover:rotate-3;
+  @apply w-10 h-10 hover:bg-vsk-primary/30 rounded-vsk p-1 transform transition-all duration-200 ease-out hover:scale-110 hover:rotate-3;
 }
 /* Animaciones personalizadas */
 @keyframes fadeIn {
@@ -169,10 +177,10 @@ onUnmounted(() => {
   }
 }
 
-@keyframes slideUp {
+@keyframes slideUpPlus {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px); /* Un poco más de desplazamiento */
   }
   to {
     opacity: 1;
@@ -181,16 +189,60 @@ onUnmounted(() => {
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.4s ease-out; /* Duración ligeramente más corta */
 }
 
-.animate-slideUp {
-  animation: slideUp 0.5s ease-out;
+.animate-slideUpPlus {
+  animation: slideUpPlus 0.5s ease-out forwards;
 }
 
 .session-button img {
-  @apply brightness-0 invert opacity-75 hover:opacity-100 transition-opacity;
+  @apply brightness-0 invert opacity-75 group-hover:opacity-100 transition-opacity duration-200;
 }
+
+/* Transiciones de Vue */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Animación de lista escalonada para píldoras de categoría */
+.list-stagger-enter-active,
+.list-stagger-leave-active {
+  transition: all 0.4s ease;
+}
+.list-stagger-enter-from,
+.list-stagger-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}
+.list-stagger-move {
+  transition: transform 0.4s ease;
+}
+
+.category-pills-wrapper {
+  gap: 0.75rem; /* Espacio entre píldoras */
+}
+
+.category-pill {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.category-pill:hover {
+  transform: translateY(-4px) scale(1.03); /* Efecto de elevación y ligero zoom */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Estilos para contenedores de la cuadrícula principal para posibles animaciones internas */
+.apps-container, .weather-container, .categories-container {
+  animation: fadeIn 0.5s ease-out 0.2s backwards; /* Retraso para que aparezcan después del slideUpPlus */
+}
+
 
 ::-webkit-scrollbar {
   width: 8px;
