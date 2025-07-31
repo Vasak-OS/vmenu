@@ -311,5 +311,29 @@ export default defineComponent({
 </script>
 
 <template>
-  <img :src="getIcon" alt="weather icon" class="img-fluid" />
+  <transition name="icon-fade" mode="out-in">
+    <img 
+      :key="getIcon" 
+      :src="getIcon" 
+      alt="weather icon" 
+      class="img-fluid weather-icon-img" 
+    />
+  </transition>
 </template>
+
+<style scoped>
+.weather-icon-img {
+  transition: transform 0.3s ease;
+}
+
+/* Transición para cambio de iconos del clima */
+.icon-fade-enter-active,
+.icon-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.icon-fade-enter-from,
+.icon-fade-leave-to {
+  opacity: 0;
+}
+</style>
