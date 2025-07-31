@@ -34,20 +34,48 @@ const setMenu = async () => {
   }
 };
 
+const detectDisplayServer = async () => {
+  try {
+    const result = await invoke("detect_display_server");
+    return result;
+  } catch (error) {
+    console.error("Error detectando servidor de display:", error);
+    return "unknown";
+  }
+};
+
 const logout = async () => {
-  await invoke("logout");
+  try {
+    const displayServer = await detectDisplayServer();
+    await invoke("logout", { displayServer });
+  } catch (error) {
+    console.error("Error al hacer logout:", error);
+  }
 };
 
 const shutdown = async () => {
-  await invoke("shutdown");
+  try {
+    await invoke("shutdown");
+  } catch (error) {
+    console.error("Error al apagar:", error);
+  }
 };
 
 const reboot = async () => {
-  await invoke("reboot");
+  try {
+    await invoke("reboot");
+  } catch (error) {
+    console.error("Error al reiniciar:", error);
+  }
 };
 
 const suspend = async () => {
-  await invoke("suspend");
+  try {
+    const displayServer = await detectDisplayServer();
+    await invoke("suspend", { displayServer });
+  } catch (error) {
+    console.error("Error al suspender:", error);
+  }
 };
 
 const apps = computed(() => {

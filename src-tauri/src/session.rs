@@ -45,11 +45,10 @@ pub fn shutdown() -> Result<(), String> {
     ];
 
     for cmd in commands {
-        if Command::new("sh")
+        if let Ok(_) = Command::new("sh")
             .arg("-c")
             .arg(cmd)
-            .status()
-            .is_ok() {
+            .status() {
             return Ok(());
         }
     }
@@ -65,11 +64,10 @@ pub fn reboot() -> Result<(), String> {
     ];
 
     for cmd in commands {
-        if Command::new("sh")
+        if let Ok(_) = Command::new("sh")
             .arg("-c")
             .arg(cmd)
-            .status()
-            .is_ok() {
+            .status() {
             return Ok(());
         }
     }
@@ -92,11 +90,10 @@ pub fn suspend(display_server: String) -> Result<(), String> {
     };
 
     for cmd in commands {
-        if Command::new("sh")
+        if let Ok(_) = Command::new("sh")
             .arg("-c")
             .arg(cmd)
-            .status()
-            .is_ok() {
+            .status() {
             return Ok(());
         }
     }
